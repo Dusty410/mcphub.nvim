@@ -171,13 +171,13 @@ function M.render_server_capabilities(server, lines, current_line, config_source
     current_line = current_line + 1
 
     -- Prepare hover hint based on server status
-    local hint = is_native and "[<t> Toggle]" or "[<t> Toggle, <e> Edit, <d> Delete]"
+    local hint = is_native and "[<t> Toggle]" or "[<t> Toggle, <E> Edit, <d> Delete]"
     local needs_authorization = server.status == "unauthorized"
     local enabled_hint = is_native and "[<l> Expand, <t> Toggle]"
-        or needs_authorization and "[<l> Authorize, <t> Toggle, <e> Edit, <d> Delete]"
-        or "[<l> Expand, <t> Toggle, <e> Edit, <d> Delete]"
+        or needs_authorization and "[<l> Authorize, <t> Toggle, <E> Edit, <d> Delete]"
+        or "[<l> Expand, <t> Toggle, <E> Edit, <d> Delete]"
     local expanded_hint = is_native and "[<h> Collapse, <t> Toggle]"
-        or "[<h> Collapse, <t> Toggle, <e> Edit, <d> Delete]"
+        or "[<h> Collapse, <t> Toggle, <E> Edit, <d> Delete]"
     if server.status ~= "disabled" and server.status ~= "disconnected" then
         hint = view.expanded_server == server.name and expanded_hint or enabled_hint
     end
@@ -225,7 +225,7 @@ function M.render_server_capabilities(server, lines, current_line, config_source
             server_name = server.name,
             disabled = is_disabled,
             name = Text.icons.instructions .. " Custom Instructions",
-            hint = is_disabled and "[<t> Toggle]" or "[<e> Edit, <t> Toggle]",
+            hint = is_disabled and "[<t> Toggle]" or "[<E> Edit, <t> Toggle]",
         })
         table.insert(lines, Text.empty_line())
         current_line = current_line + 1

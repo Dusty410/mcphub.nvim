@@ -413,7 +413,7 @@ function MainView:setup_active_mode()
     else
         -- Normal mode keymaps
         self.keymaps = {
-            ["e"] = {
+            ["E"] = {
                 action = function()
                     self:handle_edit()
                 end,

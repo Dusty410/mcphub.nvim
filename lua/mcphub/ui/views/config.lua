@@ -23,7 +23,7 @@ function ConfigView:before_enter()
     View.before_enter(self)
 
     self.keymaps = {
-        ["e"] = {
+        ["E"] = {
             action = function()
                 if State.config and State.config.config then
                     self.ui:toggle()
