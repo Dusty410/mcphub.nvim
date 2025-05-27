@@ -1,10 +1,10 @@
 name: Nix Build
 
-# on:
-#   push:
-#     branches:
-#       - main
-#   pull_request: ~
+on:
+  push:
+    branches:
+      - main
+  pull_request: ~
 
 jobs:
   tests:
