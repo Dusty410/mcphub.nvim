@@ -1,10 +1,10 @@
 name: Continuous Integration
 
-on:
-  push:
-    branches:
-      - main
-  pull_request: ~
+# on:
+#   push:
+#     branches:
+#       - main
+#   pull_request: ~
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event_name == 'pull_request' && github.head_ref || github.sha }}
