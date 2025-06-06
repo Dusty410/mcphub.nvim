@@ -67,6 +67,8 @@ The `config` file should have a `mcpServers` key. This contains `stdio` and `rem
 - `args`: Array of command arguments
 - `env`: Optional environment variables
 - `dev`: Development mode configuration for auto-restart on file changes
+- `name`: Display name that will be shown in the UI
+- `description`: Short description about the server (useful when the server is disabled and `auto_toggle_mcp_servers` is `true`)
 
 ##### `env` Special Values
 
@@ -148,6 +150,8 @@ MCPHub supports both `streamable-http` and `sse` remote servers.
 
 ##### Optional fields:
 - `headers`: Optional authentication headers
+- `name`: Display name that will be shown in the UI
+- `description`: Short description about the server (useful when the server is disabled and `auto_toggle_mcp_servers` is `true`)
 
 ##### `headers` Special Values
 
@@ -169,6 +173,7 @@ MCPHub adds several extra keys for each server automatically from the UI:
             "disabled_tools": ["expensive-tool"],
             "disabled_resources": ["resource://large-data"],
             "disabled_resourceTemplates": ["resource://{type}/{id}"],
+            "autoApprove": ["safe-tool", "read-only-tool"],
             "custom_instructions": {
                 "disabled": false,
                 "text": "Custom instructions for this server"
@@ -178,5 +183,21 @@ MCPHub adds several extra keys for each server automatically from the UI:
 }
 ```
 
+### Auto-Approval Configuration
 
+![Image](https://github.com/user-attachments/assets/131bfed2-c4e7-4e2e-ba90-c86e6ca257fd)
 
+![Image](https://github.com/user-attachments/assets/befd1d44-bca3-41f6-a99a-3d15c6c8a5f5)
+
+The `autoApprove` field allows fine-grained control over which tools are automatically approved without user confirmation:
+
+| Value | Behavior | Example |
+|-------|----------|---------|
+| `true` | Auto-approve all tools on this server | `"autoApprove": true` |
+| `["tool1", "tool2"]` | Auto-approve only specific tools | `"autoApprove": ["read_file", "list_files"]` |
+| `[]` or omitted | No auto-approval (show confirmation dialog) | `"autoApprove": []` |
+
+**Notes:**
+- Resources are always auto-approved by default (no explicit configuration needed)
+- Auto-approval only applies to enabled servers and enabled tools
+- You can toggle auto-approval from the UI using the `a` keymap on servers or individual tools
