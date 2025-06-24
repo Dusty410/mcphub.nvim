@@ -306,7 +306,14 @@ function MainView:handle_action(line_override, context_override)
                 end
             end
         elseif context.status == "unauthorized" then
+            local authUrl = State.hub_instance:get_server(context.name)["authorizationUrl"]
+            if not authUrl then
+                return vim.notify("No authorization URL found for server " .. context.name, vim.log.levels.ERROR)
+            end
+            ---Auto opens the browser with authorization URL
             State.hub_instance:authorize_mcp_server(context.name)
+            -- Show popup for the user
+            ui_utils.open_auth_popup(context.name, authUrl)
         end
     elseif type == "create_server" then
         -- Store browse mode position before switching
@@ -940,7 +947,7 @@ end
 
 function MainView:render()
     -- Handle special states from base view
-    if State.setup_state == "failed" or State.setup_state == "in_progress" then
+    if State.setup_state == "failed" or State.setup_state == "in_progress" or State.setup_state == "not_started" then
         return View.render(self)
     end
     -- Get base header

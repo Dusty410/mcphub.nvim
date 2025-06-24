@@ -11,6 +11,15 @@ local defaults = {
     mcp_request_timeout = 60000, --Timeout for MCP requests in milliseconds, useful for long running tasks
     ---@type table<string, NativeServerDef>
     native_servers = {},
+    builtin_tools = {
+        replace_in_file = {
+            keymaps = {
+                accept = "ga",
+                reject = "gr",
+            },
+        },
+    },
+    ---@type boolean | fun(parsed_params: MCPHub.ParsedParams): boolean | nil | string  Function to determine if a call should be auto-approved
     auto_approve = false,
     auto_toggle_mcp_servers = true, -- Let LLMs start and stop MCP servers automatically
     use_bundled_binary = false, -- Whether to use bundled mcp-hub binary
@@ -27,20 +36,11 @@ local defaults = {
     },
     ---@type MCPHub.UIConfig
     ui = {
-        window = {
-            width = 0.85, -- 0-1 (ratio); "50%" (percentage); 50 (raw number)
-            height = 0.85, -- 0-1 (ratio); "50%" (percentage); 50 (raw number)
-            align = "center", -- "center", "top-left", "top-right", "bottom-left", "bottom-right", "top", "bottom", "left", "right"
-            border = "rounded", -- "none", "single", "double", "rounded", "solid", "shadow"
-            relative = "editor",
-            zindex = 50,
-        },
-        wo = { -- window-scoped options (vim.wo)
-            winhl = "Normal:MCPHubNormal,FloatBorder:MCPHubBorder",
-        },
+        window = {},
+        wo = {},
     },
+    ---@type MCPHub.Extensions.Config
     extensions = {
-        ---@type MCPHubAvanteConfig
         avante = {
             enabled = true,
             make_slash_commands = true,
